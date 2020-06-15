@@ -23,7 +23,9 @@ class UserSeeder {
       fone2: '55555555',
       cpf: '123.456.789-00',
       email: 'admin@admin.com',
-      password: 'admin'
+      password: 'admin',
+      admin: 1,
+      ativado: 1
     })
   }
 }
