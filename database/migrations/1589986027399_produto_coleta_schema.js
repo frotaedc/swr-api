@@ -10,6 +10,7 @@ class ProdutoColetaSchema extends Schema {
       table.integer('coleta_id').unsigned().notNullable();
       table.integer('produto_id').unsigned().notNullable();
       table.float('quantidade', 8, 2).notNullable();
+      table.integer('tipo_medida_id').unsigned();
       table.decimal('custo', 8, 2).notNullable();
       table.timestamps()
     })

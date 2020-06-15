@@ -14,3 +14,12 @@ const Route = use('Route')
 // Route.get('index_dashboard', 'SGCOR/Admin/DashboardController.index').prefix('v1/admin').middleware(['auth', 'is: ( admin or comissao )']); // implementando middleware e ACL
 // Route.get("cidades", "CidadeController.index").prefix('v1').middleware(["auth", 'is:( admin or comissao )']);
 // Route.get("setores", "SGCOR/Admin/pessoas/coger/setores/SetorController.index").prefix('v1')//.middleware(["auth", 'is:( admin or comissao )']);
+
+Route.group(() => {
+
+    Route.resource("cliente", "cliente/ClienteController").apiOnly()//.except("update");
+    Route.resource("produto", "produto/ProdutoController").apiOnly()//.except("update");
+    Route.resource("coleta", "procedimento/ColetaController").apiOnly()//.except("update");
+    Route.resource("destinacao", "procedimento/DestinacaoController").apiOnly()//.except("update");
+
+}).prefix('v1/admin')//.namespace('auth')

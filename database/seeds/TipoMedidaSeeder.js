@@ -6,9 +6,7 @@ const TipoMedida = use('App/Models/produto/TipoMedida')
 
 const tipos = [
   'Kg',
-  'Ton.',
   'Lt',
-  'Mt²',
   'Mt³',
 ]
 

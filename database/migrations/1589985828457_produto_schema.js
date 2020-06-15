@@ -7,8 +7,10 @@ class ProdutoSchema extends Schema {
   up () {
     this.create('produtos', (table) => {
       table.increments()
-      table.integer('tipo_produto_id').unsigned();
-      table.integer('tipo_medida_id').unsigned();
+      table.string('nome', 255).notNullable();
+      table.string('descricao', 255).notNullable();
+      // table.integer('tipo_produto_id').unsigned();
+      // table.integer('tipo_medida_id').unsigned();
       table.timestamps()
     })
   }

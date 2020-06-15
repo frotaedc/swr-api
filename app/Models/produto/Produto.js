@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Produto extends Model {
+
+    // tipo_medida() {
+    //     return this.belongsTo('App/Models/produto/TipoMedida', 'tipo_medida_id', 'id')
+    // }
 }
 
 module.exports = Produto

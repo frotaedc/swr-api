@@ -4,6 +4,10 @@
 const Model = use('Model')
 
 class Endereco extends Model {
+
+    cliente() {
+        return this.belongsTo('App/Models/cliente/Cliente', 'cliente_id', 'id')
+    }
 }
 
 module.exports = Endereco

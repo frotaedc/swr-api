@@ -9,7 +9,7 @@ class AuthController {
     const trx = await Database.beginTransaction()
     try {
       const { nome, cargo, fone, fone2, cpf, email, password } = request.all();
-      const user = await User.create({ nome, cargo, fone, fone2, cpf, email, password, status_acesso }, trx)
+      const user = await User.create({ nome, cargo, fone, fone2, cpf, email, password, admin: 1, ativado: 1 }, trx)
       // const userRole = await Role.findBy('slug', slug)
       // await user.roles().attach([userRole.id], null, trx)
       await trx.commit()
@@ -52,12 +52,12 @@ class AuthController {
   async login({ request, response, auth }) {
     const { cpf, password } = request.all();
     const data = await auth.withRefreshToken().attempt(cpf, password)
-    // const usuario = await User.query()
-    const usuario = await Database.table('users')
+    const usuario = await User.query()
+    // const usuario = await Database.table('users')
     // .with('roles')
-    // .where('cpf', cpf)
+    .where('cpf', cpf)
     .first()
-    console.log(usuario)
+    // console.log(usuario)
     return response.send({ data, user: usuario })
   }
 

@@ -9,6 +9,7 @@ class ProdutoDestinacaoSchema extends Schema {
       // alter table
       table.foreign('destinacao_id').references('id').inTable('destinacaos')
       table.foreign('produto_id').references('id').inTable('produtos')
+      table.foreign('tipo_medida_id').references('id').inTable('tipo_medidas')
     })
   }
 
@@ -17,6 +18,7 @@ class ProdutoDestinacaoSchema extends Schema {
       // reverse alternations
       table.dropForeign('destinacao_id')
       table.dropForeign('produto_id')
+      table.dropForeign('tipo_medida_id')
     })
   }
 }
