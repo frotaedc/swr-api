@@ -20,6 +20,10 @@ Route.group(() => {
     Route.resource("cliente", "cliente/ClienteController").apiOnly()//.except("update");
     Route.resource("produto", "produto/ProdutoController").apiOnly()//.except("update");
     Route.resource("coleta", "procedimento/ColetaController").apiOnly()//.except("update");
+    Route.post("coleta_produto", "procedimento/ColetaController.store_coleta_produto");
+    Route.put("coleta_produto/:id", "procedimento/ColetaController.update_coleta_produto");
     Route.resource("destinacao", "procedimento/DestinacaoController").apiOnly()//.except("update");
+    Route.post("destinacao_produto", "procedimento/DestinacaoController.store_destinacao_produto");
+    Route.put("destinacao_produto/:id", "procedimento/DestinacaoController.update_destinacao_produto");
 
 }).prefix('v1/admin')//.namespace('auth')

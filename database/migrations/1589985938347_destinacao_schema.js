@@ -12,6 +12,8 @@ class DestinacaoSchema extends Schema {
       table.integer('user_id').unsigned(); // colaborador
       table.integer('nota_id').unsigned(); // nota fiscal
       table.text('observacao').nullable();
+      table.boolean('agendado').nullable();
+      table.boolean('destinado').nullable();
       table.timestamps()
     })
   }
