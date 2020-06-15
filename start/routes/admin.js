@@ -26,4 +26,4 @@ Route.group(() => {
     Route.post("destinacao_produto", "procedimento/DestinacaoController.store_destinacao_produto");
     Route.put("destinacao_produto/:id", "procedimento/DestinacaoController.update_destinacao_produto");
 
-}).prefix('v1/admin')//.namespace('auth')
+}).prefix('v1/admin').middleware(['auth'])//.namespace('auth')
