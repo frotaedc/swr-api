@@ -52,10 +52,12 @@ class AuthController {
   async login({ request, response, auth }) {
     const { cpf, password } = request.all();
     const data = await auth.withRefreshToken().attempt(cpf, password)
-    const usuario = await User.query()
-      // .with('roles')
-      .where('cpf', '=', cpf)
-      .first()
+    // const usuario = await User.query()
+    const usuario = await Database.table('users')
+    // .with('roles')
+    // .where('cpf', cpf)
+    .first()
+    console.log(usuario)
     return response.send({ data, user: usuario })
   }
 
