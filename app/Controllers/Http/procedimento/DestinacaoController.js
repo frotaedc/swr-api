@@ -3,10 +3,12 @@
 const Database = use('Database')
 const Destinacao = use("App/Models/procedimento/destinacao/Destinacao");
 const ProdutoDestinacao = use("App/Models/procedimento/destinacao/ProdutoDestinacao");
+const { str_random } = use('App/Helpers')
 
 class DestinacaoController {
 
   async index({ request, response }) {
+    // console.log(await str_random(25))
     const dados = await Destinacao.query()
       // const usuario = await Database.table('users')
       .with('funcionario')
