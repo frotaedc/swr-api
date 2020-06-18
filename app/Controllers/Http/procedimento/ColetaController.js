@@ -1,14 +1,14 @@
 'use strict'
 
 const Database = use('Database')
-const ModeldoController = use("App/Models/procedimento/coleta/Coleta");
+const Coleta = use("App/Models/procedimento/coleta/Coleta");
 const ProdutoColeta = use("App/Models/procedimento/coleta/ProdutoColeta");
 
 
 class ColetaController {
 
   async index({ request, response }) {
-    const dados = await ModeldoController.query()
+    const dados = await Coleta.query()
       // const usuario = await Database.table('users')
       .with('funcionario')
       .with('cliente')
@@ -21,17 +21,24 @@ class ColetaController {
   }
 
   async store({ request, response }) {
+    const trx = await Database.beginTransaction()
     try {
-      const requests = request.all();
-      let dados = await ModeldoController.create({ ...requests }); // usando o spred operator(desestruturação)
+      const {
+        data, hora, cliente_id, user_id, observacao, agendado, coletado,
+        produto_id, quantidade, tipo_medida_id, custo
+      } = request.all();
+      let dadosColeta = await Coleta.create({ data, hora, cliente_id, user_id, observacao, agendado, coletado }, trx);
+      let dadosProduto = await ProdutoColeta.create({ coleta_id: dadosColeta.id, produto_id, quantidade, tipo_medida_id, custo }, trx);
 
       // const topic = Ws.getChannel('canal:topico1').topic('canal:topico1')
       // if (topic) {
       //   topic.broadcast('message', 'Novo produto cadastrado!')
       // }
-      return response.status(201).send(dados)
+      await trx.commit()
+      return response.status(201).send({dadosColeta, dadosProduto})
 
     } catch (error) {
+      await trx.rollback()
       return response.status(400).send({
         message: 'Erro ao processar a sua solicitação!'
       })
@@ -51,7 +58,7 @@ class ColetaController {
   }
 
   async show({ params, response }) {
-    let dados = await ModeldoController.query()
+    let dados = await Coleta.query()
       .with('funcionario')
       .with('cliente')
       .with('produto_coleta')
@@ -63,7 +70,7 @@ class ColetaController {
   }
 
   async update({ params, request, response }) {
-    let dados = await ModeldoController.findOrFail(params.id);
+    let dados = await Coleta.findOrFail(params.id);
     const requests = request.all();
     dados.merge({ ...requests });
     await dados.save();
@@ -79,7 +86,7 @@ class ColetaController {
   }
 
   async destroy({ params, request, response }) {
-    const dados = await ModeldoController.findOrFail(params.id);
+    const dados = await Coleta.findOrFail(params.id);
     await dados.delete();
     return response.status(204).send()
   }

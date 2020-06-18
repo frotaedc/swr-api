@@ -7,7 +7,8 @@ class ColetaSchema extends Schema {
   up () {
     this.create('coletas', (table) => {
       table.increments()
-      table.datetime('data').notNullable(); // data e hora
+      table.date('data').notNullable();
+      table.time('hora').notNullable();
       table.integer('cliente_id').unsigned();
       table.integer('user_id').unsigned(); // colaborador
       // table.integer('nota_id').unsigned(); // nota fiscal
