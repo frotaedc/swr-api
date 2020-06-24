@@ -19,6 +19,7 @@ Route.group(() => {
 
     Route.resource("cliente", "cliente/ClienteController").apiOnly()//.except("update");
     Route.resource("produto", "produto/ProdutoController").apiOnly()//.except("update");
+    Route.get("medidas", "produto/ProdutoController.medidas")
     Route.resource("coleta", "procedimento/ColetaController").apiOnly()//.except("update");
     Route.post("coleta_produto", "procedimento/ColetaController.store_coleta_produto");
     Route.put("coleta_produto/:id", "procedimento/ColetaController.update_coleta_produto");

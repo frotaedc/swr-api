@@ -3,6 +3,7 @@
 
 const Database = use('Database')
 const ModeldoController = use("App/Models/produto/Produto");
+const TipoMedida = use("App/Models/produto/TipoMedida");
 
 class ProdutoController {
 
@@ -16,6 +17,11 @@ class ProdutoController {
         // console.log(usuario)
         return response.send(dados)
     }
+
+    async medidas({ request, response }) {
+      const dados = await TipoMedida.query().fetch()
+      return response.send(dados)
+  }
 
     async store({ request, response }) {
         try {
