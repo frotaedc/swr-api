@@ -3,6 +3,7 @@
 const Database = use('Database')
 const Coleta = use("App/Models/procedimento/coleta/Coleta");
 const ProdutoColeta = use("App/Models/procedimento/coleta/ProdutoColeta");
+const User = use("App/Models/User");
 
 
 class ColetaController {
@@ -24,10 +25,12 @@ class ColetaController {
     const trx = await Database.beginTransaction()
     try {
       const {
-        data, hora, cliente_id, user_id, observacao, agendado, coletado,
+        data, hora, cliente_id, usuario_cpf, observacao, agendado, coletado,
         produto_id, quantidade, tipo_medida_id, custo
       } = request.all();
-      let dadosColeta = await Coleta.create({ data, hora, cliente_id, user_id, observacao, agendado, coletado }, trx);
+      const user = await User.query().where('cpf', usuario_cpf).first()
+      // console.log(user.id)
+      let dadosColeta = await Coleta.create({ data, hora, cliente_id, user_id: user.id, observacao, agendado, coletado }, trx);
       let dadosProduto = await ProdutoColeta.create({ coleta_id: dadosColeta.id, produto_id, quantidade, tipo_medida_id, custo }, trx);
 
       // const topic = Ws.getChannel('canal:topico1').topic('canal:topico1')
