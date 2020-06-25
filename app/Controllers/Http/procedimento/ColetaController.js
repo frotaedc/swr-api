@@ -17,6 +17,9 @@ class ColetaController {
       .with('produto_coleta.produto')
       .with('produto_coleta.tipo_medida')
       // .first()
+      .where('coletado', 1)
+      .orderBy('data', 'desc')
+      .orderBy('hora', 'desc')
       .fetch()
     return response.send(dados)
   }
